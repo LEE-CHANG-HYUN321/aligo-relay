@@ -45,3 +45,13 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ 서버 실행 중 on port ${PORT}`);
 });
+
+
+app.get('/my-ip', async (req, res) => {
+  try {
+    const ipRes = await axios.get('https://api.ipify.org?format=json');
+    res.json(ipRes.data); // { ip: "xxx.xxx.xxx.xxx" }
+  } catch (err) {
+    res.status(500).json({ error: err.toString() });
+  }
+});
